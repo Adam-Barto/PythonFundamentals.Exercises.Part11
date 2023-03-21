@@ -11,6 +11,7 @@ class Rectangle:
 
 
 class Square(Rectangle):
-    def __init__(self, length_width):
-        self.length = length_width
-        self.width = length_width
+    def __init__(self, length):
+        super().__init__(length, length)
+
+
