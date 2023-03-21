@@ -30,13 +30,13 @@ class Person:
 class Instructor(Person):
     def __init__(self, instructor_id="Instructor_" + str(uuid.UUID)):
         super(Person).__init__()
-        self.instructor_id = instructor_id
+        self.instructor_id = "Instructor_" + str(instructor_id)
 
 
 class Student(Person):
-    def __init__(self, student_id="Student_" + str(uuid.UUID)):
+    def __init__(self, student_id='Student_' + str(uuid.UUID)):
         super(Person).__init__()
-        self.student_id = student_id
+        self.student_id = "Student_" + str(student_id)
 
 
 class ZipCodeStudent(Student):
@@ -48,8 +48,9 @@ class College(Student):
 
 
 class Classroom:
-    students = []
-    instructors = []
+    def __init__(self):
+        self.students = []
+        self.instructors = []
 
     def add_instructor(self, instructor):
         self.instructors.append(instructor)
@@ -68,5 +69,3 @@ class Classroom:
 
     def print_students(self):
         print(self.students)
-
-
