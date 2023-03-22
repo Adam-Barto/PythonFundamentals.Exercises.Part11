@@ -28,15 +28,15 @@ class Person:
 
 
 class Instructor(Person):
-    def __init__(self, instructor_id="Instructor_" + str(uuid.UUID)):
+    def __init__(self, instructor_id=None):
         super(Person).__init__()
-        self.instructor_id = "Instructor_" + str(instructor_id)
+        self.instructor_id = "Instructor_" + str(uuid.uuid4())
 
 
 class Student(Person):
-    def __init__(self, student_id='Student_' + str(uuid.UUID)):
+    def __init__(self, student_id=None):
         super(Person).__init__()
-        self.student_id = "Student_" + str(student_id)
+        self.student_id = "Student_" + str(uuid.uuid4())
 
 
 class ZipCodeStudent(Student):

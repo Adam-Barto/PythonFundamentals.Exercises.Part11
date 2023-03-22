@@ -1,3 +1,4 @@
+import uuid
 from enum import Enum
 from io import StringIO
 from unittest import TestCase
@@ -58,6 +59,25 @@ class TestPerson(TestCase):
                 p = gradebook.College()
                 p.update_status(expected)
                 self.assertEqual(expected, p.status)
+
+    # def test_create_instructor(self):
+    #     test_case = [
+    #         (123, 'Instructor_'+str(uuid.uuid1(0, 123)))
+    #     ]
+    #     for (card, expected) in test_case:
+    #         with self.subTest(f'{card}, {expected}'):
+    #             instructor = gradebook.Instructor(card)
+    #             self.assertEqual(expected, instructor.instructor_id)
+    #
+    # def test_create_student(self):
+    #     test_case = [
+    #         (123, 'Student_'+str(uuid.uuid1(0, 123)))
+    #     ]
+    #     for (card, expected) in test_case:
+    #         with self.subTest(f'{card}, {expected}'):
+    #             student = gradebook.Student()
+    #             print(student.student_id)
+    #             self.assertEqual(expected, student.student_id)
 
     def test_add_instructor(self):
         test_case = [
