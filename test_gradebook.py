@@ -7,6 +7,15 @@ from unittest.mock import patch
 import gradebook
 
 
+# this will be how we test the valid uuid
+def is_valid_uuid(val):
+    try:
+        uuid.UUID(str(val))
+        return True
+    except ValueError:
+        return False
+
+
 class TestPerson(TestCase):
     def test_update_first_name(self):
         test_case = [
@@ -58,27 +67,29 @@ class TestPerson(TestCase):
             with self.subTest(f'{actual}, {expected}'):
                 p.update_status(actual)
                 actual = p.status
-                print(actual,expected)
+                print(actual, expected)
                 self.assertEqual(expected, actual)
 
-    # def test_create_instructor(self):
-    #     test_case = [
-    #         (123, 'Instructor_'+str(uuid.uuid1(0, 123)))
-    #     ]
-    #     for (card, expected) in test_case:
-    #         with self.subTest(f'{card}, {expected}'):
-    #             instructor = gradebook.Instructor(card)
-    #             self.assertEqual(expected, instructor.instructor_id)
-    #
-    # def test_create_student(self):
-    #     test_case = [
-    #         (123, 'Student_'+str(uuid.uuid1(0, 123)))
-    #     ]
-    #     for (card, expected) in test_case:
-    #         with self.subTest(f'{card}, {expected}'):
-    #             student = gradebook.Student()
-    #             print(student.student_id)
-    #             self.assertEqual(expected, student.student_id)
+    def test_create_instructor(self):
+        test_case = [
+            (123, True)
+        ]
+
+        for (card, expected) in test_case:
+            with self.subTest(f'{card}, {expected}'):
+                instructor = gradebook.Instructor(card)
+                actual = is_valid_uuid(instructor.instructor_id.replace('Instructor_', ''))
+                self.assertEqual(expected, actual)
+
+    def test_create_student(self):
+        test_case = [
+            (123, True)
+        ]
+        for (card, expected) in test_case:
+            with self.subTest(f'{card}, {expected}'):
+                student = gradebook.Student(card)
+                actual = is_valid_uuid(student.student_id.replace('Student_', ''))
+                self.assertEqual(expected, actual)
 
     def test_add_instructor(self):
         test_case = [
@@ -123,7 +134,8 @@ class TestPerson(TestCase):
     @patch('sys.stdout', new_callable=StringIO)
     def test_print_instructors(self, mock_stdout):
         test_case = [
-            ([gradebook.Instructor, gradebook.Instructor], "[<class 'gradebook.Instructor'>, <class 'gradebook.Instructor'>]\n"),
+            ([gradebook.Instructor, gradebook.Instructor],
+             "[<class 'gradebook.Instructor'>, <class 'gradebook.Instructor'>]\n"),
         ]
         for (peoples, expected) in test_case:
             with self.subTest(f'{peoples}, {expected}'):
