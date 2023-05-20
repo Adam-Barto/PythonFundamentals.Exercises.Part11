@@ -50,15 +50,16 @@ class TestPerson(TestCase):
             Alive = 1
 
         test_case = [
-            AliveStatus.Alive,
-            AliveStatus.Alive,
-            AliveStatus.Deceased
+            [AliveStatus.Alive.value, 1],
+            [AliveStatus.Deceased.value, 0]
         ]
-        for (expected) in test_case:
-            with self.subTest(f'{expected}'):
-                p = gradebook.College()
-                p.update_status(expected)
-                self.assertEqual(expected, p.status)
+        p = gradebook.College()
+        for (actual, expected) in test_case:
+            with self.subTest(f'{actual}, {expected}'):
+                p.update_status(actual)
+                actual = p.status
+                print(actual,expected)
+                self.assertEqual(expected, actual)
 
     # def test_create_instructor(self):
     #     test_case = [
